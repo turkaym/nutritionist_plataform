@@ -9,6 +9,10 @@ const serverEnvSchema = z.object({
     MERCADO_PAGO_WEBHOOK_SECRET: z.string().optional(),
     EMAIL_FROM: z.string().optional(),
     EMAIL_PROVIDER_API_KEY: z.string().optional(),
+    SEED_ADMIN_EMAIL: z.string().optional(),
+    SEED_ADMIN_PASSWORD: z.string().optional(),
+    SEED_ADMIN_FIRST_NAME: z.string().optional(),
+    SEED_ADMIN_LAST_NAME: z.string().optional(),
 });
 
 export const serverEnv = serverEnvSchema.parse({
@@ -20,4 +24,8 @@ export const serverEnv = serverEnvSchema.parse({
     MERCADO_PAGO_WEBHOOK_SECRET: process.env.MERCADO_PAGO_WEBHOOK_SECRET,
     EMAIL_FROM: process.env.EMAIL_FROM,
     EMAIL_PROVIDER_API_KEY: process.env.EMAIL_PROVIDER_API_KEY,
+    SEED_ADMIN_EMAIL: process.env.SEED_ADMIN_EMAIL,
+    SEED_ADMIN_PASSWORD: process.env.SEED_ADMIN_PASSWORD,
+    SEED_ADMIN_FIRST_NAME: process.env.SEED_ADMIN_FIRST_NAME,
+    SEED_ADMIN_LAST_NAME: process.env.SEED_ADMIN_LAST_NAME,
 });

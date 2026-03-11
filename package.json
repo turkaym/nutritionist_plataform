@@ -7,12 +7,17 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
+    "type-check": "tsc --noEmit",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "db:seed": "tsx scripts/seeds/index.ts",
+    "db:seed:roles": "tsx scripts/seeds/seed-roles.ts",
+    "db:seed:admin": "tsx scripts/seeds/seed-admin.ts"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.45.1",
     "next": "16.1.6",
@@ -34,6 +39,7 @@
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "tailwindcss": "^4",
+    "tsx": "^4.21.0",
     "typescript": "^5"
   }
 }
