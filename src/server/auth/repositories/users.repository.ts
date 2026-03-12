@@ -90,5 +90,18 @@ export function createUsersRepository(executor: DatabaseExecutor = database) {
 
             return user ?? null;
         },
+
+        async updateLastLoginAt(userId: string, lastLoginAt: Date) {
+            const [user] = await executor
+                .update(users)
+                .set({
+                    last_login_at: lastLoginAt,
+                    updated_at: lastLoginAt,
+                })
+                .where(and(eq(users.id, userId), isNull(users.deleted_at)))
+                .returning(userAuthSelect);
+
+            return user ?? null;
+        },
     };
 }

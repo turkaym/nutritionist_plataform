@@ -1,6 +1,6 @@
 export interface CreateSessionInput {
     userId: string;
-    sessionToken: string;
+    sessionTokenHash: string;
     expiresAt: Date;
     ipAddress?: string | null;
     userAgent?: string | null;

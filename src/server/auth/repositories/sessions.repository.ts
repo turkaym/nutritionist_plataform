@@ -11,7 +11,7 @@ import type {
 const sessionSelect = {
     id: sessions.id,
     user_id: sessions.user_id,
-    session_token: sessions.session_token,
+    session_token_hash: sessions.session_token_hash,
     ip_address: sessions.ip_address,
     user_agent: sessions.user_agent,
     expires_at: sessions.expires_at,
@@ -30,7 +30,7 @@ export function createSessionsRepository(
                 .insert(sessions)
                 .values({
                     user_id: input.userId,
-                    session_token: input.sessionToken,
+                    session_token_hash: input.sessionTokenHash,
                     expires_at: input.expiresAt,
                     ip_address: input.ipAddress ?? null,
                     user_agent: input.userAgent ?? null,
@@ -40,7 +40,7 @@ export function createSessionsRepository(
             return session;
         },
 
-        async findActiveByToken(token: string) {
+        async findActiveByTokenHash(sessionTokenHash: string) {
             const now = new Date();
 
             const [session] = await executor
@@ -48,7 +48,7 @@ export function createSessionsRepository(
                 .from(sessions)
                 .where(
                     and(
-                        eq(sessions.session_token, token),
+                        eq(sessions.session_token_hash, sessionTokenHash),
                         isNull(sessions.revoked_at),
                         gt(sessions.expires_at, now),
                     ),

@@ -15,6 +15,13 @@
       "when": 1773153545734,
       "tag": "0001_fancy_namorita",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1773337115554,
+      "tag": "0002_jazzy_hannibal_king",
+      "breakpoints": true
     }
   ]
 }

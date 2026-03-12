@@ -74,7 +74,7 @@ export const sessions = pgTable(
                 onDelete: "cascade",
                 onUpdate: "cascade",
             }),
-        session_token: text("session_token").notNull(),
+        session_token_hash: text("session_token_hash").notNull(),
         ip_address: text("ip_address"),
         user_agent: text("user_agent"),
         expires_at: expiresAtColumn().notNull(),
@@ -84,8 +84,8 @@ export const sessions = pgTable(
         updated_at: updatedAtColumn(),
     },
     (table) => ({
-        sessionsTokenUniqueIdx: uniqueIndex("sessions_token_unique_idx").on(
-            table.session_token,
+        sessionsTokenHashUniqueIdx: uniqueIndex("sessions_token_hash_unique_idx").on(
+            table.session_token_hash,
         ),
         sessionsUserIdx: index("sessions_user_idx").on(table.user_id),
         sessionsExpiresAtIdx: index("sessions_expires_at_idx").on(table.expires_at),
