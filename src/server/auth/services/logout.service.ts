@@ -19,8 +19,7 @@ export async function logoutUser(
 
     const sessionTokenHash = hashSessionToken(sessionToken);
 
-    const session =
-        await sessionsRepository.findActiveByTokenHash(sessionTokenHash);
+    const session = await sessionsRepository.findByTokenHash(sessionTokenHash);
 
     if (!session) {
         return {
@@ -28,10 +27,12 @@ export async function logoutUser(
         };
     }
 
-    await sessionsRepository.revokeSession({
-        sessionId: session.id,
-        revokedAt: new Date(),
-    });
+    if (!session.revoked_at) {
+        await sessionsRepository.revokeSession({
+            sessionId: session.id,
+            revokedAt: new Date(),
+        });
+    }
 
     return {
         cookie: buildExpiredSessionCookieOptions(),

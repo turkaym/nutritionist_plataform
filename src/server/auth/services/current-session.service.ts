@@ -22,8 +22,7 @@ export async function resolveCurrentSession(
 
     const sessionTokenHash = hashSessionToken(sessionToken);
 
-    const session =
-        await sessionsRepository.findActiveByTokenHash(sessionTokenHash);
+    const session = await sessionsRepository.findByTokenHash(sessionTokenHash);
 
     if (!session) {
         throw new AppError({

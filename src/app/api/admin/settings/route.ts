@@ -1,8 +1,17 @@
-export async function GET() {
-    return Response.json({
-        ok: true,
-        domain: "admin",
-        route: "settings",
-        message: "Foundation placeholder endpoint.",
-    });
-}
+import { NextResponse } from "next/server";
+
+import { withAdminRoute } from "@/server/auth/http/with-admin-route";
+
+export const GET = withAdminRoute(async () => {
+    return NextResponse.json(
+        {
+            success: true,
+            data: {
+                domain: "admin",
+                route: "settings",
+                message: "Protected admin placeholder endpoint.",
+            },
+        },
+        { status: 200 },
+    );
+});

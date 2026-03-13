@@ -1,4 +1,4 @@
-import { and, eq, gt, isNull } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
 import { sessions } from "@/../drizzle/schema";
 import { database } from "@/server/shared/db/database";
@@ -40,19 +40,11 @@ export function createSessionsRepository(
             return session;
         },
 
-        async findActiveByTokenHash(sessionTokenHash: string) {
-            const now = new Date();
-
+        async findByTokenHash(sessionTokenHash: string) {
             const [session] = await executor
                 .select(sessionSelect)
                 .from(sessions)
-                .where(
-                    and(
-                        eq(sessions.session_token_hash, sessionTokenHash),
-                        isNull(sessions.revoked_at),
-                        gt(sessions.expires_at, now),
-                    ),
-                )
+                .where(eq(sessions.session_token_hash, sessionTokenHash))
                 .limit(1);
 
             return session ?? null;

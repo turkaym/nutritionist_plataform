@@ -1,8 +1,17 @@
-export async function GET() {
-    return Response.json({
-        ok: true,
-        domain: "me",
-        route: "profile",
-        message: "Foundation placeholder endpoint.",
-    });
-}
+import { NextResponse } from "next/server";
+
+import { withProtectedRoute } from "@/server/auth/http/with-protected-route";
+
+export const GET = withProtectedRoute(async (_request, actor) => {
+    return NextResponse.json(
+        {
+            success: true,
+            data: {
+                domain: "me",
+                route: "profile",
+                user: actor.user,
+            },
+        },
+        { status: 200 },
+    );
+});
